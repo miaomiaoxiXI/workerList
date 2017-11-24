@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./js/Semantic-UI-CSS-master/semantic.min.css">
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    
+    <form name="signup_form"
+    novalidate
+    ng-submit="signupForm(signup_form)"
+    ng-controller="signupController">
+  <fieldset>
+      <legend>Signup</legend>
+      <div class="row">
+          <div class="large-12 columns">
+              <label>Your name</label>
+              <input type="text"
+                     placeholder="Name"
+                     name="name"
+                     ng-model="signup.name"
+                     ng-minlength="3"
+                     ng-maxlength="20" required />
+              <div class="error"
+                   ng-show="signup_form.name.$dirty && signup_form.name.$invalid && submitted">//修改了
+                  <small>error here</small>
+              </div>
+          </div>
+      </div>
+      <button type="submit" >Submit</button>
+  </fieldset>
+</form>
+
+<script>
+  app.controller('signupController', function($scope) { 
+      $scope.submitted = false;
+      $scope.signupForm = function(form) {
+          if (form.$valid) { //
+          
+          } else {
+              $scope.submitted = true;//修改了
+          } 
+      }
+  });
+</script>
+
+</body>
+
+</html>

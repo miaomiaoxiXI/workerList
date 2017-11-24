@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.5.1/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./js/Semantic-UI-CSS-master/semantic.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl" >
+        <h1 class="ui large header" id="head">员工信息管理系统</h1>
+        
+        <!-- 增加信息 -->
+        <div class="ui animated button" ng-click="user.add()">
+            <div class="visible content">
+                <button class="ui icon positive button" >
+                    <i class="add user icon"></i>
+                </button>
+            </div>
+            <div class="hidden content">
+                新增
+            </div>
+        </div>
+       
+        <!-- 查询信息 -->
+        搜索：<input type="text" placeholder="请输入关键字" ng-model="user.keyword" ng-keydown="user.search($event)">
+        <!-- 信息展示列表 -->
+        <table class="ui celled table" >
+            <thead>
+                <tr class="center aligned">
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>职务</th>
+                    <th>编号</th>
+                    <th>部门</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="center aligned" ng-repeat="x in user.workers|filter:test">
+                    <td>{{ x.Name }}</td>
+                    <td>{{ x.Sex }}</td>
+                    <td>{{ x.Job }}</td>
+                    <td>{{ x.Num }}</td>
+                    <td>{{ x.Dept }}</td>
+                    <td>
+                        <div class="ui buttons">
+
+                            <div class="ui animated button" ng-click="user.modify($index)">
+                                <div class="visible content">
+                                    <button class="ui positive button">
+                                        <i class="edit icon"></i>
+                                    </button>
+                                </div>
+                                <div class="hidden content">
+                                    修改
+                                </div>
+                            </div>
+
+                            <div class="or"></div>
+
+
+                            <div class="ui animated button" ng-click="user.delete($index)">
+                                <div class="visible content">
+                                    <button class="ui positive button">
+                                        <i class="remove user icon"></i>
+                                    </button>
+                                </div>
+                                <div class="hidden content">
+                                    删除
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3">
+                        <div class="ui right floated pagination menu">
+                            <a class="icon item">
+                                <i class="left chevron icon"></i>
+                            </a>
+                            <a class="item">1</a>
+                            <a class="item">2</a>
+                            <a class="item">3</a>
+                            <a class="item">4</a>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- 增加/修改 信息弹出框-->
+        <form class="ui modal" name="myForm" id="modal1"  required>
+            <h4 class="ui dividing header">{{user.state=='add'?'添加':'修改'}}员工信息</h4>
+            <div>姓名：</div>
+            <input ng-model="user.info.Name" type="text" name="nameInput" required>
+            <br/>
+            <br/>
+            <div class="ui form">
+                <div class="field">
+                    <label>性别</label>
+                    <select class="ui search updown" ng-model="user.info.Sex" name="sexInput" required>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <div>职务：</div>
+            <input ng-model="user.info.Job" type="text" name="jobInput" required>
+            <br/>
+            <br/>
+            <div>编号：</div>
+            <input ng-model="user.info.Num" type="text" name="numInput" required>
+            <br/>
+            <br/>
+            <div class="ui form" >
+                <div class="field">
+                    <label>部门</label>
+                    <select class="ui search updown" ng-model="user.info.Dept" name="deptInput"  required>
+                        <option value="信息部">信息部</option>
+                        <option value="销售部">销售部</option>
+                        <option value="技术部">技术部</option>
+                        <option value="产品部">产品部</option>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <button class="ui primary positive  button" ng-click="user.save()"  
+                        ng-disabled="myForm.nameInput.$invalid ||myForm.jobInput.$invalid||
+                                     myForm.numInput.$invalid||myForm.deptInput.$invalid||myForm.sexInput.$invalid"
+                >保存 </button>
+                <button class="ui button" ng-click="user.cancel()">取消 </button>
+                <p><span ng-show="myForm.nameInput.$invalid ||myForm.jobInput.$invalid||
+                    myForm.numInput.$invalid||myForm.deptInput.$invalid||myForm.sexInput.$invalid">
+                    请填写完整信息!!!</span>
+                </p>
+            </div>
+        </form>
+  
+
+       
+    </div>
+
+
+    <script src="./js/Semantic-UI-CSS-master/semantic.min.js"></script>
+
+</body>
+
+</html>
